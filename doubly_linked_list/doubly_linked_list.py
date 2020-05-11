@@ -1,10 +1,10 @@
 """Each ListNode holds a reference to its previous node
 as well as its next node in the List."""
 class ListNode:
-    def __init__(self, value, prev=None, next=None):
+    def __init__(self, value, prev=None, next_node=None):
         self.value = value
         self.prev = prev
-        self.next = next
+        self.next = next_node
 
     """Wrap the given value in a ListNode and insert it
     after this node. Note that this node could already
