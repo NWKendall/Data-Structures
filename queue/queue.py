@@ -1,3 +1,4 @@
+import sys
 """
 A queue is a data structure whose primary purpose is to store and
 return elements in First In First Out order. 
@@ -13,13 +14,30 @@ return elements in First In First Out order.
 class Queue:
     def __init__(self):
         self.size = 0
-        # self.storage = ?
+        self.total = 0
+        self.storage = []
     
     def __len__(self):
-        pass
+        return len(self.storage)
 
     def enqueue(self, value):
-        pass
+        self.storage.append(value)
 
     def dequeue(self):
-        pass
+        if len(self.storage) < 1:
+            return None
+        else:
+            return self.storage.pop(0)
+
+
+line = Queue()
+
+line.enqueue(1)
+line.enqueue(3)
+line.enqueue(1)
+line.enqueue(3)
+line.dequeue()
+
+print(line.storage)
+print(line.__len__())
+
