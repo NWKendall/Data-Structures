@@ -70,7 +70,7 @@ class DoublyLinkedList:
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
     def remove_from_head(self):
-        # store value of to_be_deleted head
+        # store value before we delete the node, so it can be returned
         value = self.head.value
         # delete head
         self.delete(self.head)
@@ -111,12 +111,28 @@ class DoublyLinkedList:
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
-        pass
+        # self refers to list
+        # node is value passed in as arg
+        # -----
+        # don't perform if node already is head
+        if node is self.head:
+            return
+        # store node value so is safe to delete and available for adding to head
+        value = node.value
+        # delete node from current location
+        self.delete(node)
+        # add to head
+        self.add_to_head(value)
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
-        pass
+        # opposite of move_to_front        
+        if node is self.tail:
+            return
+        value = node.value
+        self.delete(node)
+        self.add_to_tail(value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
