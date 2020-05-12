@@ -149,8 +149,8 @@ class Stack:
     def __iter__(self):
         node = self.storage.head
         while node:
-            node = node.next_node
             print(node.value)
+            node = node.next_node
 
     def get_head(self):
         return self.storage.head.get_value()
@@ -170,7 +170,7 @@ class Stack:
 
 
 stack = Stack()
-stack.push(10)
+stack.push(1)
 stack.push(2)
 stack.push(3)
 stack.push(4)
