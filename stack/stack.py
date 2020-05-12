@@ -82,42 +82,47 @@ class Node:
 
 class LinkedList:
     def __init__(self):
-        # first node in the list
+        # first node in list
         self.head = None
+        # last node in list
         self.tail = None
     
     def add_to_end(self, value):
-        # regardless of if the list is empty or not, we need to wrap the value in a Node
-        new_node = Node(value)
+        # # regardless of if the list is empty or not, we need to wrap the value in a Node
+        # new_node = Node(value)
 
-        # what if the list is empty?
+        # # what if the list is empty?
+        # if not self.head and not self.tail:
+        #     self.head = new_node
+        #     self.tail = new_node
+
+        # else:
+        #     # set the current tail's next to new node
+        #     new_node.set_next(self.head)
+        #     # set self.tail to new_node
+        #     self.head = new_node
+        new_node = Node(value)
+        # what if the list is empty? 
         if not self.head:
             self.head = new_node
-        
-        if self.tail:
-            self.tail.next_node = new_node
+        # what if the list isn't empty?
+        else:
+            # what node do we want to add the new node to? 
+            # the last node in the list 
+            # we can get to the last node in the list by traversing it 
+            current = self.head 
+            while current.get_next() is not None:
+                current = current.get_next()
+            # we're at the end of the linked list 
+            current.set_next(new_node)
 
-        self.tail = new_node
-        
-        # # what if the list isn't empty?
-        # else:
-        #     # what node do we want to add the new node to?
-        #     # the last node in the list
-        #     # we can get to the last node in the list by traversing it
-        #     current = self.head
-        #     while current.get_next() is not None:
-        #         current = current.get_next()
-        #     # we're at the end of the linked list
-        #     current.set_next(new_node)
 
-    # removes first item in list (head)
-        # not good for stacks!
+        
     def remove_from_head(self):
         # what if the list is empty?
         if not self.head:
             return None
-        elif not self.head.get_next():
-            return self.head.get_value()
+
         else:
             # we want to return the value at the current head
             value = self.head.get_value()
@@ -126,47 +131,61 @@ class LinkedList:
             self.head = self.head.get_next()
             return value
     
-    def remove_last(self):
-        # if only one node in list, remove it
-        node = self.head
-        # while node has a next, move onto next node
-        while not node:
-            node = node.next_node
+    def remove_tail(self):
+        if not self.head:
+            return None
+        elif not self.head.get_next():
+            return self.head.get_value()
+        else:
+            current = self.head
+            while current.get_next():
+            # navigate towards end of tail
+                current = current.get_next()
+                # current place
+            node_to_del = current
+            # value of current node
+            node_to_del_val = current.get_value()
 
-        # if node has no next, remove
-            if not node.next_node:
-                node = None
+            current2 = self.head
+            while current2.get_next() is not node_to_del:
+                current2 = current2.get_next()
+            current2.set_next(None)
+            return node_to_del_val
+
 
 class Stack:
     # LIFO!
     def __init__(self):
         # size = len of list
         self.size = 0
-        # total =sum of list values
-        self.total = 0
         self.storage = LinkedList()
+    
+    def __len__(self):
+        return self.size
 
     def __iter__(self):
         node = self.storage.head
-        while node:
+        while node is not None:
             print(node.value)
-            node = node.next_node
+            node = node.get_next()
 
     def get_head(self):
         return self.storage.head.get_value()
 
+    def get_tail(self):
+        return self.storage.tail.get_value()
+
     def push(self, value):
         self.size += 1
-        self.total += value
         self.storage.add_to_end(value)
 
     def pop(self):
-        if not self.storage:
+        # 🐛 stack has no len?
+        if self.size == 0:
             return None
         else:
             self.size -= 1
-            return self.storage.remove_last()
-
+            return self.storage.remove_tail()
 
 
 stack = Stack()
@@ -187,4 +206,4 @@ stack.pop()
 stack.__iter__()
 print("Head:", stack.get_head())
 print("Size:", stack.size)
-print("Total:", stack.total)
+
