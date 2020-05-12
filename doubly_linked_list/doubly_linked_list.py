@@ -163,4 +163,22 @@ class DoublyLinkedList:
             node.delete()
     """Returns the highest value currently in the list"""
     def get_max(self):
-        pass
+        # start at head
+        if not self.head:
+            return None
+        # store the head.value in max_val
+        max_value = self.head.value
+        # create a var for iteration, beginning with first value (head node)
+        current = self.head
+        # iterate through each node and compare
+        while current:
+            if current.value > max_value:
+                max_value = current.value
+            current = current.next
+
+        return max_value
+            
+        # if i > max_val, max_val = i
+        # return max_val
+
+
