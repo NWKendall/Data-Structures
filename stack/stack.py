@@ -34,7 +34,7 @@ return elements in Last In First Out order.
 #         self.storage = []
 
 #     def __len__(self):
-#         return len(self.storage)
+#         return sel.size
 
 #     def size_of_stack(self):
 #         self.size = len(self.storage)
