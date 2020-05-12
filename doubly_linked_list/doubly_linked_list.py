@@ -66,8 +66,6 @@ class DoublyLinkedList:
             # updating new head to new-node
             self.head = new_node
 
-
-
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
@@ -78,7 +76,23 @@ class DoublyLinkedList:
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly."""
     def add_to_tail(self, value):
-        pass
+        new_node = ListNode(value)
+        # add value reflecting # of items in LL
+        self.length += 1
+        # link node to head if list is empty. Becomes both head and tail
+        if not self.head and not self.tail:
+            self.head = new_node
+            self.tail = new_node
+        # list is populated
+        else:
+        # update the locations of head and tail
+        # opposite of add_new_head
+            # the prev-prop of new node will be linking to previous tail
+            new_node.prev = self.tail
+            # current tail's next-prop will link to new node being added
+            self.tail.next = new_node
+            # updating new tail to new-node
+            self.tail = new_node
 
     """Removes the List's current tail node, making the 
     current tail's previous node the new tail of the List.
