@@ -40,6 +40,7 @@ class BinarySearchTree:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
+        # recursive calls navigate the tree, no loops required
         # check if node exists
         # if self is None:
         #     return False
@@ -65,7 +66,24 @@ class BinarySearchTree:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # store given value
+        max_val = self.value
+        # store hieght
+        tree_height = 0
+        
+        if not self.right:
+            return max_val
+        else:
+            tree_height += 1
+            return self.right.get_max()
+        # check right code if exists
+            # update value
+            # repeat
+        # break when no right child exists
+        # return max_val
+
+        return max_val
+        
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
