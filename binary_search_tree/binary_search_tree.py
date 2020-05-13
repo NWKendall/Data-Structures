@@ -18,17 +18,24 @@ class BinarySearchTree:
     # Insert the given value into the tree
     def insert(self, value):
         # check if empty
-        if self == None:
-            return BinarySearchTree(value)
+        if self.value is None:
+            self = BinarySearchTree(value)
         # if populated
-        else:
-            # check value of new node
-            if value < self.value:
-            # if smaller add to self.left
+        
+        # check value of new node
+        # if smaller add to self.left
+        elif value < self.value:
+            if self.left is None:
                 self.left = BinarySearchTree(value)
-            # if =< add self.right
-            if value >= self.value:
+            else:
+                self.left.insert(value)
+        else:
+        # self.value >= value:
+            if self.right is None:
                 self.right = BinarySearchTree(value)
+            else:
+                self.right.insert(value)
+
 
     # Return True if the tree contains the value
     # False if it does not
