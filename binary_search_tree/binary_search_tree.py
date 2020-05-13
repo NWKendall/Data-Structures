@@ -9,7 +9,7 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
-class BSTNode:
+class BinarySearchTree:
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -17,7 +17,18 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        # check if empty
+        if self == None:
+            return BinarySearchTree(value)
+        # if populated
+        else:
+            # check value of new node
+            if value < self.value:
+            # if smaller add to self.left
+                self.left = BinarySearchTree(value)
+            # if =< add self.right
+            if value >= self.value:
+                self.right = BinarySearchTree(value)
 
     # Return True if the tree contains the value
     # False if it does not
