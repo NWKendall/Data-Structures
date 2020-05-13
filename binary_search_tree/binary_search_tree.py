@@ -18,7 +18,7 @@ class BinarySearchTree:
     # Insert the given value into the tree
     def insert(self, value):
         # check if empty
-        if self.value is None:
+        if self is None:
             self = BinarySearchTree(value)
         # if populated
         
@@ -40,7 +40,28 @@ class BinarySearchTree:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # check if node exists
+        # if self is None:
+        #     return False
+        # return true if value of node is same as target
+        if target == self.value: # base case (returning concrete answer)
+            return True
+        # if smaller, recursive call on left child 
+        elif target < self.value:
+            # check to see if lef child exists on current child
+            if self.left:
+                # if true, recusrive call on left child
+                return self.left.contains(target)
+        # if larger, recursive call on right child 
+        elif target > self.value:
+            # check to see if lef child exists on current child
+            if self.right:
+                # if true, recusrive call on left child
+                return self.right.contains(target)
+        else:
+            # should this False return be in each child check? 
+            return False # base case (returning concrete answer)
+
 
     # Return the maximum value found in the tree
     def get_max(self):

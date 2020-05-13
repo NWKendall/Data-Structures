@@ -140,13 +140,13 @@ class DoublyLinkedList:
         # TODO: Catch errors if list is empty or node is not in list
 
         # assuming node is in list
-        # reduce # of items in DLL
+        # reduce # of items in DLL - may need to reposition to avoid negative numbers
         self.length -= 1
         # if head & tail, ass
         if self.head is self.tail:
             self.head = None
             self.tail = None
-        # if head
+        # if node is head
         elif node is self.head:
             # next node after head becomes new head
             self.head = self.head.next
