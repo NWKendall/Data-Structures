@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,14 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        # limit/max of lru
+        self.limit = limit
+        # current size
+        self.size = 0
+        # DLL for order of data
+        self.order = DoublyLinkedList()
+        # Provides fast access to evert value in order
+        self.storage = dict()
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +26,17 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+    # check if key exists
+        if key not in self.storage:
+            return None
+    # if key is in cahce
+        else:
+        # move it to most recently used
+            new_tail = self.storage[key]
+            self.order.move_to_end(new_tail)
+            return new_tail.value[1]
+        # return value
+
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +49,30 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # simplest scenario goes at the bottom as else
+
+        # if item/key already exists
+        if key in self.storage:
+            # where is the value stored = storage
+            node = self.storage[key] # setting node variable to data in storage, referenced by key
+            # overwrite the value with the new value
+            # overwrites key but same value
+            node.value = (key, value)
+            # move to the tail (most recently used)
+            self.order.move_to_end(node)
+            return
+
+        # check to see if size is at limit
+        if len(self.order) == self.limit:
+            # evict oldest
+            # to be Garbage Collected (GC), data must have no pointers
+            # as the value of head is a tuple, calling value[0] refers to the key within the tuple
+            index_of_oldest = self.order.head.value[0]
+            del self.storage[index_of_oldest]
+            self.order.remove_from_head()
+
+        # otherwise if size not at limit
+        # add to order
+        self.order.add_to_tail((key, value))
+        # add to storage
+        self.storage[key] = self.order.tail

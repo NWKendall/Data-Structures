@@ -171,6 +171,7 @@ class DoublyLinkedList:
         # create a var for iteration, beginning with first value (head node)
         current = self.head
         # iterate through each node and compare
+        # don't use for loop!
         while current:
             if current.value > max_value:
                 max_value = current.value
