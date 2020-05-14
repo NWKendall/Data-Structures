@@ -73,15 +73,8 @@ class Stack:
     def get_head(self):
         return self.storage.head.get_value()
 
-    # def get_tail(self):
-    #     node = self.storage.head.get_value()
-    #     if not node:
-    #         return None
-    #     elif node.next_node:
-    #         node = node.next_node
-    #         node.get_tail()
-    #     else:
-    #         return node.get_value()
+    def get_tail(self):
+        return self.storage.get_tail()
 
     def push(self, value):
         self.size += 1
@@ -101,12 +94,11 @@ stack.push(1)
 stack.push(2)
 stack.push(3)
 stack.push(4)
-print("Head:", stack.get_head())
-print("Length:", stack.size)
-stack.pop()
-stack.pop()
-stack.pop()
+
 
 
 print("Head:", stack.get_head())
+print("Head:", stack.storage.remove_head())
+print("New Head:", stack.get_head())
 print("Length:", stack.size)
+print("Tail:", stack.get_tail())
