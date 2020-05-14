@@ -1,3 +1,4 @@
+from queue import Queue
 """
 Binary search trees are a data structure that enforce an ordering over 
 the data they store. That ordering in turn makes it a lot more efficient 
@@ -20,8 +21,7 @@ class BinarySearchTree:
         # check if empty
         if self is None:
             self = BinarySearchTree(value)
-        # if populated
-        
+        # if populated       
         # check value of new node
         # if smaller add to self.left
         elif value < self.value:
@@ -43,9 +43,10 @@ class BinarySearchTree:
         # recursive calls navigate the tree, no loops required
         # check if node exists
         # if self is None:
-        #     return False
+        # return False
         # return true if value of node is same as target
-        if target == self.value: # base case (returning concrete answer)
+        if target == self.value: 
+            # base case (returning concrete answer)
             return True
         # if smaller, recursive call on left child 
         elif target < self.value:
@@ -61,29 +62,45 @@ class BinarySearchTree:
                 return self.right.contains(target)
         else:
             # should this False return be in each child check? 
-            return False # base case (returning concrete answer)
+            # base case (returning concrete answer)
+            return False 
 
 
     # Return the maximum value found in the tree
+    # can improve this by removing line 85, could aslo return self.vale on 75 instead of in a variable
     def get_max(self):
         # store given value
         max_val = self.value
         # store hieght
         tree_height = 0
         
+        # check right code if exists
         if not self.right:
             return max_val
         else:
             tree_height += 1
-            return self.right.get_max()
-        # check right code if exists
             # update value
             # repeat
+            return self.right.get_max()
         # break when no right child exists
         # return max_val
 
         return max_val
-        
+    
+    # depth first?
+    def iterative_get_max(self):
+        current_max = self.value
+
+        current = self
+
+        # traverse 
+        while current is not None:
+            if current.value > current_max:
+                # updates value
+                current_max = current.value
+            # iterates to next right node if current value is equal or less than current max
+            current = current.right
+
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
@@ -93,18 +110,59 @@ class BinarySearchTree:
         if self.right:
             self.right.for_each(fn)
 
+    # depth first?
+    def iterate_for_each(self, fn):
+        stack = []
+
+        stack.append(self)
+
+        while len(stack) > 0:
+            current = stack.pop()
+            if current.right:
+                stack.append(current.right)            
+            if current.right:
+                stack.append(current.left)
+            
+            fn(current.value)
+
 
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        # use recursion
+        # get values
+        # stores values
+        # get low
+        # sort values low - high
+        if node.left:
+            node.in_order_print(node.left)
+        print(str(node.value))
+        if node.right:
+            node.in_order_print(node.right)
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        # we need to utilize a queue and set it to a var
+        storage = Queue()
+        # add root to the Q
+        storage.enqueue(self)
+        # while Q is not empty:
+        while (len(storage) > 0):
+            # dequeue our node in order to remove from front of line and print it
+            remove_item = storage.dequeue()
+            # dq method returns the value of our first item in the Q
+            print(remove_item.value)
+            # check the nodes left and put it in line to be dequed and printed
+            if node.left:
+                storage.enqueue(node.left)
+            # check the nodes right and put it in line to be dequed and printed
+            if node.right:
+                storage.enqueue(node.right)
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
@@ -121,3 +179,8 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+
+# comments should be focussed on intent and outcome
+# code itself should be telling the story
+    # semantic variables
